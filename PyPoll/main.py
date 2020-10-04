@@ -1,6 +1,7 @@
 # To allow the importing and reading of .csv files
 import os
 import csv
+import shutil
 
 # Path to collect data from the Resources folder
 # ~Be extreamly careful where you are in Terminal~
@@ -9,8 +10,10 @@ import csv
 
 #poll_csv = os.path.join("Resources", "election_data.csv")       #<-- Live data for final results; +3.5 million rows of data
 poll_csv = os.path.join("Resources", "test_election_data.csv")   #<-- Test data for code testing; 12 rows of data
+#--------------------------------------------------------------------------------------------------------------------------------------
 
-
+# Variables
+total_votes = 0
 
 
 
@@ -26,4 +29,48 @@ with open(poll_csv, 'r') as csv_file:
 
     # Loop through the data
     for row in csv_reader:
-        print(row)
+        
+        # Calculates the total number of rows in a file
+        if row[0] != (None, ""):
+            total_votes = total_votes + 1  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Completed
+print("Election Results")
+print("----------------------------")
+print("Total Votes: " + str(total_votes))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
