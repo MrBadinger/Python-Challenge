@@ -8,10 +8,16 @@ import csv
 # ~Code to grab and read CSV file is correct~
 budget_csv = os.path.join("Resources", "budget_data.csv")
 
+# Variables
 pnl_total = 0
 pnl_profile = 0
 total_month = 0
+month_change = 0
+
+# Lists 
 average_change = []
+
+
 #Read in the CSV file
 with open(budget_csv, 'r') as csv_file:
 
@@ -31,12 +37,24 @@ with open(budget_csv, 'r') as csv_file:
     
         # This sums the row to find total profit and loss
         pnl_total = pnl_total + int(row[1])
-        print(pnl_total)
+        
+        # This will take the first P/L value, store it, and subtract it against the P/L value in the next row
+        # The value is stored in the average change list. 
+        # Then to prepare the next it will store the current P/L value to be subtracted in the next row.
+        if total_month == 1:
+            prev_mon_pnl = int(row[1])
+        else:
+            month_change = int(row[1]) - prev_mon_pnl
+            average_change.append(month_change)
+            prev_mon_pnl = int(row[1])
+            month_change = 0
 
 
 
-#print(average_change)
-  
+
+# Sums all the changes in the average change list and divides by the
+# Number of items in the list to make average 
+average_change_sum = (sum(average_change) / len(average_change)) 
 
 
 
@@ -48,3 +66,4 @@ print("----------------------------------")
 # Reports backs the total number of months by totaling the number of rows
 print("Total Months: " + str(total_month))
 print("Total P/L: $" + "{:,}".format(pnl_total))
+print("Average Monthly Change: $" + "{:,.2f}".format(average_change_sum))
