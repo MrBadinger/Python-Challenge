@@ -1,6 +1,7 @@
 # To allow the importing and reading of .csv files
 import os
 import csv
+import shutil
 
 # Path to collect data from the Resources folder
 # ~Be extreamly careful where you are in Terminal~
@@ -57,7 +58,7 @@ with open(budget_csv, 'r') as csv_file:
             elif month_change > max_value:
                 max_value = month_change
                 max_date = str(row[0])
-                
+
             average_change.append(month_change)
             prev_mon_pnl = int(row[1])
             month_change = 0 
@@ -76,3 +77,17 @@ print("Total P/L: $" + "{:,}".format(pnl_total))
 print("Average Monthly Change: $" + "{:,.2f}".format(average_change_sum))
 print("Greatest Increase in Profits: " + max_date + " $" + "{:,}".format(max_value))
 print("Greatest Decrease in Profits: " + min_date + " $" + "{:,}".format(min_value))
+
+# Save output file
+analysis_txt = open("analysis.txt", "w+")
+analysis_txt.write("Financial Analysis")
+analysis_txt.write("\n----------------------------------")
+analysis_txt.write("\nTotal Months: " + str(total_month))
+analysis_txt.write("\nTotal P/L: $" + "{:,}".format(pnl_total))
+analysis_txt.write("\nAverage Monthly Change: $" + "{:,.2f}".format(average_change_sum))
+analysis_txt.write("\nGreatest Increase in Profits: " + max_date + " $" + "{:,}".format(max_value))
+analysis_txt.write("\nGreatest Decrease in Profits: " + min_date + " $" + "{:,}".format(min_value))
+analysis_txt.close()
+
+# Move file to Analysis folder
+shutil.move("analysis.txt", os.path.join("Analysis", "analysis.txt"))
