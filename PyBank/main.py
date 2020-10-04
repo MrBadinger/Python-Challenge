@@ -13,6 +13,8 @@ pnl_total = 0
 pnl_profile = 0
 total_month = 0
 month_change = 0
+max_value = 0
+min_value = 0
 
 # Lists 
 average_change = []
@@ -41,24 +43,29 @@ with open(budget_csv, 'r') as csv_file:
         # This will take the first P/L value, store it, and subtract it against the P/L value in the next row
         # The value is stored in the average change list. 
         # Then to prepare the next it will store the current P/L value to be subtracted in the next row.
+                
         if total_month == 1:
             prev_mon_pnl = int(row[1])
+
         else:
             month_change = int(row[1]) - prev_mon_pnl
+            
+            # Determins which date had the greatest increase/decrease
+            if month_change < min_value:
+                min_value = month_change
+                min_date = str(row[0])
+            elif month_change > max_value:
+                max_value = month_change
+                max_date = str(row[0])
+                
             average_change.append(month_change)
             prev_mon_pnl = int(row[1])
-            month_change = 0
+            month_change = 0 
 
-
-
-
+        
 # Sums all the changes in the average change list and divides by the
 # Number of items in the list to make average 
 average_change_sum = (sum(average_change) / len(average_change)) 
-
-
-
-
 
 # Completed
 print("Financial Analysis")
@@ -67,3 +74,5 @@ print("----------------------------------")
 print("Total Months: " + str(total_month))
 print("Total P/L: $" + "{:,}".format(pnl_total))
 print("Average Monthly Change: $" + "{:,.2f}".format(average_change_sum))
+print("Greatest Increase in Profits: " + max_date + " $" + "{:,}".format(max_value))
+print("Greatest Decrease in Profits: " + min_date + " $" + "{:,}".format(min_value))
