@@ -17,6 +17,9 @@ total_votes = 0
 
 
 
+# List
+candidates = []
+
 #Read in the CSV file
 with open(poll_csv, 'r') as csv_file:
 
@@ -30,11 +33,15 @@ with open(poll_csv, 'r') as csv_file:
     # Loop through the data
     for row in csv_reader:
         
-        # Calculates the total number of rows in a file
+        # Calculates the total number of rows/votes in a file
         if row[0] != (None, ""):
-            total_votes = total_votes + 1  
+            total_votes = total_votes + 1
 
+        if row[2] not in candidates:
+            candidates.append(row[2])
+        
 
+print(candidates)
 
 
 
