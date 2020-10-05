@@ -20,6 +20,9 @@ total_votes = 0
 # List
 candidates = []
 
+#Dictionary
+election = {}
+
 #Read in the CSV file
 with open(poll_csv, 'r') as csv_file:
 
@@ -37,20 +40,27 @@ with open(poll_csv, 'r') as csv_file:
         if row[0] != (None, ""):
             total_votes = total_votes + 1
 
+        # Reviews Candidate column of csv and adds uniqui values to candidates list
         if row[2] not in candidates:
             candidates.append(row[2])
-        
+    
+    
+
+    # Sets the list of candidates and makes each one a key in the election dictionary
+    for key in candidates:
+        election[key] = ""
+
 
 print(candidates)
+print(candidates[0])
 
+print("---------------------")
+print("                     ")
 
+print(election)
 
-
-
-
-
-
-
+print("                     ")
+print("---------------------")
 
 
 
