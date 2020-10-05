@@ -33,7 +33,7 @@ with open(poll_csv, 'r') as csv_file:
 
     # Read the header row first (skip this part if there is no header)
     csv_header = next(csv_file)
-    print(f"Header: {csv_header}")
+    #print(f"Header: {csv_header}")
 
     # Loop through the data
     for row in csv_reader:
@@ -56,42 +56,7 @@ with open(poll_csv, 'r') as csv_file:
         election[row[2]] = election[row[2]] +1
 
 
-        
-        # Adds vote into a list
-        votes.append(row[2])
-
-        # if election[row[2]] == row[2]:
-        #     election[row[2]] = election[row[2]] + 1
-        # for vote in votes:
-            # if election[key] == vote:
-            #     election[key] = x + 1
-
-
-print(election)
-print(votes)
-
-# for vote in votes:
-#     if vote == election[key]:
-#         election[key].append(+1)
-
-
-
-# print(candidates)
-# print(candidates[0])
-# print(election)
-# print(votes)
-
-print("---------------------")
-print("                     ")
-
-print(election)
-print(election["Khan"])
-print("                     ")
-print("---------------------")
-
-
-
-
+winner = max(election, key=election.get)
 
 
 # Completed
@@ -103,12 +68,27 @@ print(candidates[0] + ": " + '{:.2%}'.format((election[candidates[0]] / total_vo
 print(candidates[1] + ": " + '{:.2%}'.format((election[candidates[1]] / total_votes )) + " (" + str(election[candidates[1]]) + ")")
 print(candidates[2] + ": " + '{:.2%}'.format((election[candidates[2]] / total_votes )) + " (" + str(election[candidates[2]]) + ")")
 print(candidates[3] + ": " + '{:.2%}'.format((election[candidates[3]] / total_votes )) + " (" + str(election[candidates[3]]) + ")")
+print("----------------------------")
+print("Winner: " + winner)
 
 
 
+# Save output file
+analysis_txt = open("poll_analysis.txt", "w+")
+analysis_txt.write("Election Results")
+analysis_txt.write("\n----------------------------")
+analysis_txt.write("\nTotal Votes: " + str(total_votes))
+analysis_txt.write("\n----------------------------")
+analysis_txt.write("\n" + candidates[0] + ": " + '{:.2%}'.format((election[candidates[0]] / total_votes )) + " (" + str(election[candidates[0]]) + ")")
+analysis_txt.write("\n" + candidates[1] + ": " + '{:.2%}'.format((election[candidates[1]] / total_votes )) + " (" + str(election[candidates[1]]) + ")")
+analysis_txt.write("\n" + candidates[2] + ": " + '{:.2%}'.format((election[candidates[2]] / total_votes )) + " (" + str(election[candidates[2]]) + ")")
+analysis_txt.write("\n" + candidates[3] + ": " + '{:.2%}'.format((election[candidates[3]] / total_votes )) + " (" + str(election[candidates[3]]) + ")")
+analysis_txt.write("\n----------------------------")
+analysis_txt.write("\nWinner: " + winner)
+analysis_txt.close()
 
-
-
+# Move file to Analysis folder
+shutil.move("poll_analysis.txt", os.path.join("Analysis", "poll_analysis.txt"))
 
 
 
