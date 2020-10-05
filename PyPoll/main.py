@@ -9,8 +9,8 @@ import shutil
 # ~If you are in the wrong spot of Terminal the file can not be read~
 # ~Code to grab and read CSV file is correct~
 
-#poll_csv = os.path.join("Resources", "election_data.csv")       #<-- Live data for final results; +3.5 million rows of data
-poll_csv = os.path.join("Resources", "test_election_data.csv")   #<-- Test data for code testing; 12 rows of data
+poll_csv = os.path.join("Resources", "election_data.csv")       #<-- Live data for final results; +3.5 million rows of data
+#poll_csv = os.path.join("Resources", "test_election_data.csv")   #<-- Test data for code testing; 12 rows of data
 #--------------------------------------------------------------------------------------------------------------------------------------
 
 # Variables
